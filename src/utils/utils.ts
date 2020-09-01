@@ -2,6 +2,8 @@ import * as vscode from 'vscode';
 import _ = require('lodash');
 
 export class Utils {
+    public static readonly ARCHITECTURE = 'Architecture';
+
     public static isValidClassName(className: string): string | undefined {
         if (className.length === 0) {
             return "File name should have atleast 1 character";
@@ -27,7 +29,7 @@ export class Utils {
     public static openFile(filePath: string) {
         console.info(`openFile: ${filePath}`);
         let openPath = vscode.Uri.file(filePath);
-        
+
         vscode.workspace.openTextDocument(openPath).then((document) => {
             vscode.window.showTextDocument(document);
         });
@@ -63,4 +65,9 @@ export class Utils {
 
         return fileName.trim();
     }
+}
+
+export enum TypeOfArchitecture {
+    Mobile,
+    Responsive,
 }

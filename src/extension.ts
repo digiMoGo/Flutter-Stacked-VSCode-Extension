@@ -1,27 +1,99 @@
 // The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+import * as _ from "lodash";
+import { FileSystemManager } from './utils/file_system_manager';
+import { VsCodeActions } from './utils/vs_code_actions';
+import { Utils } from './utils/utils';
 
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "flutter-stacked-architecture-generator" is now active!');
+	let initializeDisposable = vscode.commands.registerCommand('extension.initializeArchitecture', () => {
+		if (!FileSystemManager.isFlutterProject()) { return; }
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('extension.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
+		let rootPath = VsCodeActions.rootPath;
+		if (_.isUndefined(rootPath)) { return; }
 
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World!');
+		let typeOfArchitecture = getTypeOfArchitecture();
+
+		if (typeOfArchitecture === undefined) {
+			// TODO ask for type
+		}
+
+		if (typeOfArchitecture === 'Mobile') {
+			// TODO Add Mobile initialisation
+			return;
+		}
+
+		if (typeOfArchitecture === 'Responsive') {
+			// TODO add responsive initialisaiton
+			return;
+		}
+	});
+
+	let viewDisposable = vscode.commands.registerCommand('extension.createViews', () => {
+		if (!FileSystemManager.isFlutterProject()) { return; }
+
+		let typeOfArchitecture = getTypeOfArchitecture();
+
+		if (typeOfArchitecture === undefined) {
+			// TODO ask for type
+		}
+
+		if (typeOfArchitecture === 'Mobile') {
+			// TODO Add Mobile Views
+			return;
+		}
+
+		if (typeOfArchitecture === 'Responsive') {
+			// TODO Add Responsive Views
+			return;
+		}
+	});
+
+	let widgetDisposable = vscode.commands.registerCommand('extension.createWidget', () => {
+		if (!FileSystemManager.isFlutterProject()) { return; }
+
+		let typeOfArchitecture = getTypeOfArchitecture();
+
+		if (typeOfArchitecture === undefined) {
+			// TODO ask for type
+		}
+
+		if (typeOfArchitecture === 'Mobile') {
+			// TODO Add Mobile Widget
+			return;
+		}
+
+		if (typeOfArchitecture === 'Responsive') {
+			// TODO Add Responsive Widget
+			return;
+		}
+	});
+
+	let disposable = vscode.commands.registerCommand('extension.helloWorld', async () => {
+
+		let typeOfArch = await vscode.window.showQuickPick(['Responsive', 'Mobile']);
+		if (typeOfArch === undefined) {
+			console.warn("undefined");
+			return;
+		}
+		updateTypeOfArchitecture(typeOfArch);
 	});
 
 	context.subscriptions.push(disposable);
+	context.subscriptions.push(initializeDisposable);
+	context.subscriptions.push(viewDisposable);
+	context.subscriptions.push(widgetDisposable);
+
+	function getTypeOfArchitecture(): string | undefined {
+		return context.workspaceState.get<string>(Utils.ARCHITECTURE);
+	}
+
+	async function updateTypeOfArchitecture(value: string) {
+		await context.workspaceState.update(Utils.ARCHITECTURE, value);
+	}
 }
 
-// this method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() {
+	console.debug('Flutter Stacked Generator: Deactivated');
+}

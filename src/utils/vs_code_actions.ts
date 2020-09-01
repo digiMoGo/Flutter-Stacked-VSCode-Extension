@@ -19,6 +19,12 @@ export class VsCodeActions {
         return input;
     }
 
+    public static async getInputDropdown(): Promise<string> {
+        let input = await window.showQuickPick(['Responsive', 'Mobile']);
+        console.log(input);
+        return input ?? 'Mobile';
+    }
+
     /**
      * Get the root path of the current context
      */
@@ -47,6 +53,10 @@ export class VsCodeActions {
     public static getEditorConfiguration(): WorkspaceConfiguration {
         let configuration = workspace.getConfiguration('editor');
         return configuration;
+
+    }
+
+    public static getUserPreference() {
 
     }
 }

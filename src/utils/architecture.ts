@@ -1,5 +1,6 @@
 import * as path from 'path';
 import * as _ from "lodash";
+
 import { FileSystemManager } from './file_system_manager';
 import { WriteFileOptions } from 'fs';
 // import { BaseModel } from '../dart_snippets/architecture/base_model';

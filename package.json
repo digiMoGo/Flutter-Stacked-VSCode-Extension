@@ -1,48 +1,75 @@
 {
-	"name": "flutter-stacked-architecture-generator",
-	"displayName": "Flutter Stacked Architecture Generator",
-	"description": "VsCode extension to generate boilerplate code when using FilledStacks Stacked Architecture",
-	"version": "0.0.1",
-	"engines": {
-		"vscode": "^1.48.0"
-	},
-	"categories": [
-		"Other"
-	],
-	"activationEvents": [
-		"onCommand:extension.helloWorld"
-	],
-	"main": "./out/extension.js",
-	"contributes": {
-		"commands": [
-			{
-				"command": "extension.helloWorld",
-				"title": "Hello World"
-			}
-		]
-	},
-	"scripts": {
-		"vscode:prepublish": "npm run compile",
-		"compile": "tsc -p ./",
-		"watch": "tsc -watch -p ./",
-		"pretest": "npm run compile",
-		"test": "node ./out/test/runTest.js"
-	},
-	"devDependencies": {
-		"@types/js-yaml": "^3.12.1",
-		"@types/lodash": "^4.14.149",
-		"@types/shelljs": "^0.8.6",
-		"@types/glob": "^7.1.1",
-		"@types/mocha": "^5.2.7",
-		"@types/node": "^12.11.7",
-		"@types/vscode": "^1.48.0",
-		"glob": "^7.1.5",
-		"mocha": "^6.2.2",
-		"typescript": "^3.6.4",
-		"tslint": "^5.20.0",
-		"vscode-test": "^1.2.2"
-	},
-	"dependencies": {
-		"lodash": "^4.17.20"
-	}
+  "name": "flutter-stacked-architecture-generator",
+  "displayName": "Flutter Stacked Architecture Generator",
+  "description": "VsCode extension to generate boilerplate code when using FilledStacks Stacked Architecture",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.48.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "Flutter",
+    "FilledStacks",
+    "MVVM",
+    "Dart",
+    "Stacked"
+  ],
+  "activationEvents": [
+    "onCommand:extension.createViews",
+    "onCommand:extension.initializeArchitecture",
+    "onCommand:extension.createWidget",
+    "onCommand:extension.helloWorld"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.createViews",
+        "title": "Create Views",
+        "category": "Stacked Architecture"
+      },
+      {
+        "command": "extension.initializeArchitecture",
+        "title": "Initialize Architecture",
+        "category": "Stacked Architecture"
+      },
+      {
+        "command": "extension.createWidget",
+        "title": "Create Widgets",
+        "category": "Stacked Architecture"
+      },
+      {
+        "command": "extension.helloWorld",
+        "title": "Test Dropdown",
+        "category": "Stacked Architecture"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^3.12.1",
+    "@types/lodash": "^4.14.149",
+    "@types/shelljs": "^0.8.6",
+    "@types/glob": "^7.1.1",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^12.11.7",
+    "@types/vscode": "^1.48.0",
+    "glob": "^7.1.5",
+    "mocha": "^6.2.2",
+    "typescript": "^3.6.4",
+    "tslint": "^5.20.0",
+    "vscode-test": "^1.2.2"
+  },
+  "dependencies": {
+    "lodash": "^4.17.20",
+    "shelljs": "^0.8.4"
+  }
 }
