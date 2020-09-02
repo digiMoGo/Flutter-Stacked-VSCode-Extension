@@ -7,7 +7,7 @@ import { Utils } from './utils/utils';
 
 export function activate(context: vscode.ExtensionContext) {
 
-	let initializeDisposable = vscode.commands.registerCommand('extension.initializeArchitecture', () => {
+	let initializeDisposable = vscode.commands.registerCommand('extension.initializeArchitecture', async () => {
 		if (!FileSystemManager.isFlutterProject()) { return; }
 
 		let rootPath = VsCodeActions.rootPath;
@@ -16,7 +16,13 @@ export function activate(context: vscode.ExtensionContext) {
 		let typeOfArchitecture = getTypeOfArchitecture();
 
 		if (typeOfArchitecture === undefined) {
-			// TODO ask for type
+			let typeOfArch = await VsCodeActions.getInputDropdown();
+			if (typeOfArch === undefined) {
+				console.warn("undefined");
+				return;
+			}
+			updateTypeOfArchitecture(typeOfArch);
+			typeOfArchitecture = typeOfArch;
 		}
 
 		if (typeOfArchitecture === 'Mobile') {
@@ -30,13 +36,19 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 	});
 
-	let viewDisposable = vscode.commands.registerCommand('extension.createViews', () => {
+	let viewDisposable = vscode.commands.registerCommand('extension.createViews', async () => {
 		if (!FileSystemManager.isFlutterProject()) { return; }
 
 		let typeOfArchitecture = getTypeOfArchitecture();
 
 		if (typeOfArchitecture === undefined) {
-			// TODO ask for type
+			let typeOfArch = await VsCodeActions.getInputDropdown();
+			if (typeOfArch === undefined) {
+				console.warn("undefined");
+				return;
+			}
+			updateTypeOfArchitecture(typeOfArch);
+			typeOfArchitecture = typeOfArch;
 		}
 
 		if (typeOfArchitecture === 'Mobile') {
@@ -50,13 +62,19 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 	});
 
-	let widgetDisposable = vscode.commands.registerCommand('extension.createWidget', () => {
+	let widgetDisposable = vscode.commands.registerCommand('extension.createWidget', async () => {
 		if (!FileSystemManager.isFlutterProject()) { return; }
 
 		let typeOfArchitecture = getTypeOfArchitecture();
 
 		if (typeOfArchitecture === undefined) {
-			// TODO ask for type
+			let typeOfArch = await VsCodeActions.getInputDropdown();
+			if (typeOfArch === undefined) {
+				console.warn("undefined");
+				return;
+			}
+			updateTypeOfArchitecture(typeOfArch);
+			typeOfArchitecture = typeOfArch;
 		}
 
 		if (typeOfArchitecture === 'Mobile') {
@@ -70,17 +88,6 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 	});
 
-	let disposable = vscode.commands.registerCommand('extension.helloWorld', async () => {
-
-		let typeOfArch = await vscode.window.showQuickPick(['Responsive', 'Mobile']);
-		if (typeOfArch === undefined) {
-			console.warn("undefined");
-			return;
-		}
-		updateTypeOfArchitecture(typeOfArch);
-	});
-
-	context.subscriptions.push(disposable);
 	context.subscriptions.push(initializeDisposable);
 	context.subscriptions.push(viewDisposable);
 	context.subscriptions.push(widgetDisposable);
