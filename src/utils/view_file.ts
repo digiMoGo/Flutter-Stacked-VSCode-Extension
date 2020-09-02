@@ -1,66 +1,82 @@
-import * as vscode from 'vscode';
-import _ = require('lodash');
+import * as path from 'path';
+import * as _ from 'lodash';
+import { existsSync } from 'fs';
+import { FileSystemManager } from './file_system_manager';
+// import { View } from '../dart_snippets/views/view';
+// import { ViewModel } from '../dart_snippets/views/view_model';
+// import { Mobile } from '../dart_snippets/views/mobile';
+// import { Desktop } from '../dart_snippets/views/desktop';
+// import { Tablet } from '../dart_snippets/views/tablet';
+import { YamlHelper } from './yaml_helper';
 
-export class Utils {
-    public static isValidClassName(className: string): string | undefined {
-        if (className.length === 0) {
-            return "File name should have atleast 1 character";
-        }
-        if (className.toLowerCase() === "view") {
-            return "View is not a valid file name";
-        }
+export class ViewFile {
 
-        if (className.toLowerCase() === "widget") {
-            return "Widget is not a valid file name";
-        }
-
-        if (
-            !className
-                .substring(0, 1)
-                .match(new RegExp("([a-zA-Z$][w$]*.)*[a-zA-Z_$][w$]*"))
-        ) {
-            return "Invalid class name format";
-        }
-        return undefined;
+    constructor(private rootPath: string, private fileName: string, private folders?: string[]) {
+        console.debug(`ViewFile(rootPath: ${rootPath}, fileName: ${fileName})`);
+        let folderCreated = FileSystemManager.createFolder(this.pathValue);
+        if (!folderCreated) { return; }
     }
 
-    public static openFile(filePath: string) {
-        console.info(`openFile: ${filePath}`);
-        let openPath = vscode.Uri.file(filePath);
-        
-        vscode.workspace.openTextDocument(openPath).then((document) => {
-            vscode.window.showTextDocument(document);
-        });
+    public createResponsiveViews() {
+        // this.createFiles(this.snakeCasedFileName + '_view.dart', new View(this.snakeCasedFileName, 'View').dartString);
+        this.createMobile();
+        this.createTablet();
+        this.createDesktop();
+        this.createWithViewModel();
     }
 
-    public static processFileName(fileName: string): string {
+    public createDemoViews() {
+        // this.createFiles(this.snakeCasedFileName + '_view.dart', new View(this.snakeCasedFileName, 'View').dartString);
+        // this.createFiles(this.snakeCasedFileName + '_mobile.dart', new Mobile(this.snakeCasedFileName, 'Mobile').demoString);
+        // this.createFiles(this.snakeCasedFileName + '_desktop.dart', new Desktop(this.snakeCasedFileName, 'Desktop').demoString);
+        // this.createFiles(this.snakeCasedFileName + '_tablet.dart', new Tablet(this.snakeCasedFileName, 'Tablet').demoString);
+        // this.createFiles(this.snakeCasedFileName + '_view_model.dart', new ViewModel(this.snakeCasedFileName, 'ViewModel', YamlHelper.getProjectName()).demoString);
+    }
 
-        if (fileName.length < 4) {
-            return fileName;
+    public createView() {
+
+    }
+
+    public createMobile() {
+        // this.createFiles(this.snakeCasedFileName + '_mobile.dart', new Mobile(this.snakeCasedFileName, 'Mobile').dartString);
+    }
+
+    public createDesktop() {
+        // this.createFiles(this.snakeCasedFileName + '_desktop.dart', new Desktop(this.snakeCasedFileName, 'Desktop').dartString);
+    }
+
+    public createTablet() {
+        // this.createFiles(this.snakeCasedFileName + '_tablet.dart', new Tablet(this.snakeCasedFileName, 'Tablet').dartString);
+    }
+
+    public createWithViewModel() {
+        // this.createFiles(this.snakeCasedFileName + '_view_model.dart', new ViewModel(this.snakeCasedFileName, 'ViewModel', YamlHelper.getProjectName()).dartString);
+    }
+
+    private get snakeCasedFileName(): string {
+        let snakeCasedFileName = _.snakeCase(this.fileName);
+        console.debug(`get snakeCasedFileName: ${snakeCasedFileName}`);
+        return snakeCasedFileName;
+    }
+
+    private get pathValue(): string {
+        if (this.folders === undefined) {
+            return path.join(
+                this.rootPath,
+                'lib',
+                'views',
+                this.snakeCasedFileName
+            );
         }
-        fileName = _.lowerCase(fileName);
+        return path.join(this.rootPath, 'lib', 'views', ...this.folders, this.snakeCasedFileName);
+    }
 
-        let viewFileName = fileName
-            .substring(fileName.length - 4, fileName.length)
-            .toLowerCase();
-
-        let widgetFileName = fileName
-            .substring(fileName.length - 6, fileName.length)
-            .toLowerCase();
-
-
-
-        if (viewFileName === "view") {
-            let truncatedFileName = fileName.substring(0, fileName.length - 4);
-            return truncatedFileName.trim();
+    private createFiles(fileName: string, data: string) {
+        if (existsSync(path.join(this.pathValue, this.snakeCasedFileName))) {
+            console.warn(`${fileName} already exists`);
+            return;
         }
 
-        if (widgetFileName === "widget") {
-            let truncatedFileName = fileName.substring(0, fileName.length - 6);
-            console.debug('Widget testing');
-            return truncatedFileName.trim();
-        }
-
-        return fileName.trim();
+        FileSystemManager.createFile(this.pathValue, fileName, data);
     }
 }
