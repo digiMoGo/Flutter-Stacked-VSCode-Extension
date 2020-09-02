@@ -19,10 +19,9 @@ export class VsCodeActions {
         return input;
     }
 
-    public static async getInputDropdown(): Promise<string> {
+    public static async getInputDropdown(): Promise<string | undefined> {
         let input = await window.showQuickPick(['Responsive', 'Mobile']);
-        console.log(input);
-        return input ?? 'Mobile';
+        return input;
     }
 
     /**
