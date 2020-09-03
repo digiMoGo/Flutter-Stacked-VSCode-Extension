@@ -7,10 +7,11 @@ export class YamlHelper {
 
     public static initializeWithDependencies() {
         this.upgradeDartVersion();
-        this.addDependencyToPubspec('stacked', '1.7.6');
-        this.addDependencyToPubspec('responsive_builder', '0.2.0+2');
-        this.addDependencyToPubspec('logger', '0.9.2');
         this.addDependencyToPubspec('get_it', '4.0.4');
+        this.addDependencyToPubspec('logger', '0.9.2');
+        this.addDependencyToPubspec('stacked', '1.7.6');
+        this.addDependencyToPubspec('stacked_services', '0.5.4+2');
+        this.addDependencyToPubspec('responsive_builder', '0.2.0+2');
         this.addDependencyToPubspec('equatable', '1.2.4');
         this.addAssetComment();
     }

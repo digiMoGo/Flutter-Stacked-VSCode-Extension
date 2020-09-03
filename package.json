@@ -19,8 +19,7 @@
   "activationEvents": [
     "onCommand:extension.createViews",
     "onCommand:extension.initializeArchitecture",
-    "onCommand:extension.createWidget",
-    "onCommand:extension.helloWorld"
+    "onCommand:extension.createWidget"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -38,11 +37,6 @@
       {
         "command": "extension.createWidget",
         "title": "Create Widgets",
-        "category": "Stacked Architecture"
-      },
-      {
-        "command": "extension.helloWorld",
-        "title": "Test Dropdown",
         "category": "Stacked Architecture"
       }
     ]

@@ -3,16 +3,13 @@ import * as _ from "lodash";
 
 import { FileSystemManager } from './file_system_manager';
 import { WriteFileOptions } from 'fs';
-// import { BaseModel } from '../dart_snippets/architecture/base_model';
-// import { BaseService } from '../dart_snippets/architecture/base_service';
-// import { BaseViewModel } from '../dart_snippets/architecture/base_view_model';
 import { Utils } from './utils';
-// import { NavigatorService } from '../dart_snippets/architecture/navigator_service';
-// import { Locator } from '../dart_snippets/architecture/locator';
-// import { Logger } from '../dart_snippets/architecture/logger';
-// import { Providers } from '../dart_snippets/architecture/providers';
-// import { Main } from '../dart_snippets/architecture/main';
 import { YamlHelper } from './yaml_helper';
+import { BaseModel } from '../dart_snippets/architecture/base_model';
+import { BaseService } from '../dart_snippets/architecture/base_service';
+import { Logger } from '../dart_snippets/architecture/logger';
+import { Locator } from '../dart_snippets/architecture/locator';
+import { Main } from '../dart_snippets/architecture/main';
 
 export class Architecture {
 
@@ -25,18 +22,16 @@ export class Architecture {
         this.initWidgets();
 
         YamlHelper.initializeWithDependencies();
-        // this.createExistingFile(this.rootPath, 'main.dart', new Main('main.dart').dartString);
+        this.createExistingFile(this.rootPath, 'main.dart', new Main('main.dart').dartString);
     }
 
     private initCore() {
         let corePath = path.join(this.rootPath, 'core');
         this.initBase(corePath);
+        this.initCoreFiles(corePath);
         this.initServices(corePath);
         this.initModels(corePath);
-
-        // this.createFile(corePath, 'locator.dart', new Locator('locator.dart').dartString);
-        // this.createFile(corePath, 'logger.dart', new Logger('logger.dart').dartString);
-        // this.createFile(corePath, 'providers.dart', new Providers('providers.dart').dartString);
+        
     }
 
     private initBase(corePath: string) {
@@ -44,10 +39,13 @@ export class Architecture {
 
         let folderCreated = FileSystemManager.createFolder(basePath);
         if (!folderCreated) { return; }
+        this.createFile(basePath, 'base_model.dart', new BaseModel('base_model.dart').dartString);
+        this.createFile(basePath, 'base_service.dart', new BaseService('base_service.dart').dartString);
+    }
 
-        // this.createFile(basePath, 'base_model.dart', new BaseModel('base_model.dart').dartString);
-        // this.createFile(basePath, 'base_service.dart', new BaseService('base_service.dart').dartString);
-        // this.createFile(basePath, 'base_view_model.dart', new BaseViewModel('base_view_model.dart').dartString);
+    private initCoreFiles(corePath: string) {
+        this.createFile(corePath, 'locator.dart', new Locator('locator.dart').dartString);
+        this.createFile(corePath, 'logger.dart', new Logger('logger.dart').dartString);
     }
 
     private initServices(corePath: string) {
@@ -55,8 +53,6 @@ export class Architecture {
 
         let folderCreated = FileSystemManager.createFolder(servicesPath);
         if (!folderCreated) { return; }
-
-        // this.createFile(servicesPath, 'navigator_service.dart', new NavigatorService('navigator_service.dart').dartString);
     }
 
     private initModels(corePath: string) {
@@ -79,8 +75,14 @@ export class Architecture {
 
     private initWidgets() {
         let widgetsPath = path.join(this.rootPath, 'widgets');
-        let folderCreated = FileSystemManager.createFolder(widgetsPath);
-        console.debug(`FolderCreated: ${folderCreated}`);
+        let widgetsFolderCreated = FileSystemManager.createFolder(widgetsPath);
+        let dumbWidgetsPath = path.join(widgetsPath, 'dumb_widgets');
+        let dumbWidgetFolderCreated = FileSystemManager.createFolder(dumbWidgetsPath);
+        let smartWidgetsPath = path.join(widgetsPath, 'smart_widgets');
+        let smartWidgetFolderCreated = FileSystemManager.createFolder(smartWidgetsPath);
+        console.debug(`FolderCreated: ${widgetsFolderCreated}`);
+        console.debug(`FolderCreated: ${dumbWidgetFolderCreated}`);
+        console.debug(`FolderCreated: ${smartWidgetFolderCreated}`);
     }
 
     private createFile(pathValue: string, fileName: string, data: string, options?: WriteFileOptions) {

@@ -3,6 +3,8 @@ import _ = require('lodash');
 
 export class Utils {
     public static readonly ARCHITECTURE = 'Architecture';
+    public static readonly TYPE_OF_ARCHITECTURE = ['Responsive', 'Mobile'];
+    public static readonly TYPE_OF_VIEWMODEL = ['BaseViewModel', 'FutureViewModel', 'StreamViewModel', 'MultipleFutureViewModel', 'MultipleStreamViewModel', 'ReactiveViewModel', 'IndexTrackingViewModel'];
 
     public static isValidClassName(className: string): string | undefined {
         if (className.length === 0) {
@@ -67,7 +69,7 @@ export class Utils {
     }
 }
 
-export enum TypeOfArchitecture {
+export enum ARCHITECTURE_VIEWS {
     Mobile,
     Responsive,
 }

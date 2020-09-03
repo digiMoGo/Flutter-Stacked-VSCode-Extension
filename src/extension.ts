@@ -1,9 +1,11 @@
 // The module 'vscode' contains the VS Code extensibility API
 import * as vscode from 'vscode';
+import * as path from "path";
 import * as _ from "lodash";
 import { FileSystemManager } from './utils/file_system_manager';
 import { VsCodeActions } from './utils/vs_code_actions';
 import { Utils } from './utils/utils';
+import { Architecture } from './utils/architecture';
 
 export function activate(context: vscode.ExtensionContext) {
 
@@ -16,7 +18,7 @@ export function activate(context: vscode.ExtensionContext) {
 		let typeOfArchitecture = getTypeOfArchitecture();
 
 		if (typeOfArchitecture === undefined) {
-			let typeOfArch = await VsCodeActions.getInputDropdown();
+			let typeOfArch = await VsCodeActions.getInputDropdown(Utils.TYPE_OF_ARCHITECTURE);
 			if (typeOfArch === undefined) {
 				console.warn("undefined");
 				return;
@@ -24,6 +26,8 @@ export function activate(context: vscode.ExtensionContext) {
 			updateTypeOfArchitecture(typeOfArch);
 			typeOfArchitecture = typeOfArch;
 		}
+
+		new Architecture(path.join(rootPath, 'lib')).init();
 
 		if (typeOfArchitecture === 'Mobile') {
 			// TODO Add Mobile initialisation
@@ -42,7 +46,7 @@ export function activate(context: vscode.ExtensionContext) {
 		let typeOfArchitecture = getTypeOfArchitecture();
 
 		if (typeOfArchitecture === undefined) {
-			let typeOfArch = await VsCodeActions.getInputDropdown();
+			let typeOfArch = await VsCodeActions.getInputDropdown(Utils.TYPE_OF_ARCHITECTURE);
 			if (typeOfArch === undefined) {
 				console.warn("undefined");
 				return;
@@ -68,7 +72,7 @@ export function activate(context: vscode.ExtensionContext) {
 		let typeOfArchitecture = getTypeOfArchitecture();
 
 		if (typeOfArchitecture === undefined) {
-			let typeOfArch = await VsCodeActions.getInputDropdown();
+			let typeOfArch = await VsCodeActions.getInputDropdown(Utils.TYPE_OF_ARCHITECTURE);
 			if (typeOfArch === undefined) {
 				console.warn("undefined");
 				return;
