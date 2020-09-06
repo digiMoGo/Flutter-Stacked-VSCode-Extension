@@ -17,25 +17,25 @@
     "Stacked"
   ],
   "activationEvents": [
-    "onCommand:extension.createViews",
-    "onCommand:extension.initializeArchitecture",
-    "onCommand:extension.createWidget"
+    "onCommand:stackedExtension.createViews",
+    "onCommand:stackedExtension.initializeArchitecture",
+    "onCommand:stackedExtension.createWidget"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "extension.createViews",
+        "command": "stackedExtension.createViews",
         "title": "Create Views",
         "category": "Stacked Architecture"
       },
       {
-        "command": "extension.initializeArchitecture",
+        "command": "stackedExtension.initializeArchitecture",
         "title": "Initialize Architecture",
         "category": "Stacked Architecture"
       },
       {
-        "command": "extension.createWidget",
+        "command": "stackedExtension.createWidget",
         "title": "Create Widgets",
         "category": "Stacked Architecture"
       }

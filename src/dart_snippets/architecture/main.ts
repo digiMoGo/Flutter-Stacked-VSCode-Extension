@@ -12,7 +12,7 @@ export class Main extends Base {
 import 'package:stacked_services/stacked_services.dart';
     
 import 'core/locator.dart';
-import 'views/counter/home_view.dart';
+import 'views/home/home_view.dart';
     
 void main() async {
   await LocatorInjector.setUpLocator();
