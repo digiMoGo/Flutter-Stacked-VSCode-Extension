@@ -12,6 +12,8 @@ export class Main extends Base {
 import 'package:stacked_services/stacked_services.dart';
     
 import 'core/locator.dart';
+import 'core/constants.dart';
+import 'core/router.dart';
 import 'views/home/home_view.dart';
     
 void main() async {
@@ -23,6 +25,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      onGenerateRoute: Router.generateRoute,
+      initialRoute: homeRoute,
       navigatorKey: locator<NavigationService>().navigatorKey,
       home: HomeView(),
     );
