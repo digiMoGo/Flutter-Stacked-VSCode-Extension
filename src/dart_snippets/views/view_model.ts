@@ -9,7 +9,7 @@ export class ViewModel extends Base {
 
     super(fileName, suffix);
     let initialPath = this.projectName === undefined ? '../../' : `package:${this.projectName}/`;
-    this._dartString = this.viewModelDartString(typeOfViewModel, initialPath);
+    this._dartString = this.viewModelDartString(this.typeOfViewModel, initialPath);
   }
 
   get dartString(): string {

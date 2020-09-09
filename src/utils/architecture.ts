@@ -48,7 +48,7 @@ export class Architecture {
     this.createFile(corePath, 'locator.dart', new Locator('locator.dart').dartString);
     this.createFile(corePath, 'logger.dart', new Logger('logger.dart').dartString);
     this.createFile(corePath, 'constants.dart', new Constants('constants.dart').dartString);
-    this.createFile(corePath, 'router.dart', new Router('router.dart',YamlHelper.getProjectName()).dartString);
+    this.createFile(corePath, 'router.dart', new Router('router.dart', YamlHelper.getProjectName()).dartString);
   }
 
   private initServices(corePath: string) {

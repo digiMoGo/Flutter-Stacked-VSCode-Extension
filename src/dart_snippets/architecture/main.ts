@@ -25,10 +25,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: locator<NavigationService>().navigatorKey,
       onGenerateRoute: Router.generateRoute,
       initialRoute: homeRoute,
-      navigatorKey: locator<NavigationService>().navigatorKey,
-      home: HomeView(),
     );
   }
 }
