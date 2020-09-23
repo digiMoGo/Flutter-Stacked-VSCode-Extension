@@ -9,6 +9,7 @@ import { Mobile } from '../dart_snippets/views/mobile';
 import { Tablet } from '../dart_snippets/views/tablet';
 import { Desktop } from '../dart_snippets/views/desktop';
 import { ViewModel } from '../dart_snippets/views/view_model';
+import { RouterJSON } from './router_json';
 
 export class ViewFile {
 
@@ -30,6 +31,8 @@ export class ViewFile {
         this.createMobileViews();
         break;
     }
+    
+    new RouterJSON(this.fileName, this.folders).addRoute();
   }
 
   private createMobileViews() {
@@ -47,7 +50,6 @@ export class ViewFile {
 
   private get snakeCasedFileName(): string {
     let snakeCasedFileName = _.snakeCase(this.fileName);
-    console.debug(`get snakeCasedFileName: ${snakeCasedFileName}`);
     return snakeCasedFileName;
   }
 

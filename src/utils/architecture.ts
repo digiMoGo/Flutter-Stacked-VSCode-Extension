@@ -10,8 +10,6 @@ import { BaseService } from '../dart_snippets/architecture/base_service';
 import { Logger } from '../dart_snippets/architecture/logger';
 import { Locator } from '../dart_snippets/architecture/locator';
 import { Main } from '../dart_snippets/architecture/main';
-import { Constants } from '../dart_snippets/architecture/constants';
-import { Router } from '../dart_snippets/architecture/router';
 
 export class Architecture {
 
@@ -47,8 +45,6 @@ export class Architecture {
   private initCoreFiles(corePath: string) {
     this.createFile(corePath, 'locator.dart', new Locator('locator.dart').dartString);
     this.createFile(corePath, 'logger.dart', new Logger('logger.dart').dartString);
-    this.createFile(corePath, 'constants.dart', new Constants('constants.dart').dartString);
-    this.createFile(corePath, 'router.dart', new Router('router.dart', YamlHelper.getProjectName()).dartString);
   }
 
   private initServices(corePath: string) {

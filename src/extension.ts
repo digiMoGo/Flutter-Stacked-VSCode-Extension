@@ -8,8 +8,19 @@ import { Utils, TYPE_OF_ARCHITECTURE, TYPE_OF_VIEWMODEL, TYPE_OF_WIDGET } from '
 import { Architecture } from './utils/architecture';
 import { ViewFile } from './utils/view_file';
 import { WidgetFile } from './utils/widget_file';
+import { RouterJSON } from './utils/router_json';
 
 export function activate(context: vscode.ExtensionContext) {
+
+	let regenerateDisposable = vscode.commands.registerCommand('stackedExtension.regenerateRoutes', async () => {
+		if (!FileSystemManager.isFlutterProject()) {
+			VsCodeActions.showErrorMessage('Missing pubspec');
+			return;
+		}
+
+		VsCodeActions.showInformationMessage('Regenerating router and router constants');
+		RouterJSON.generateFiles();
+	});
 
 	let initializeDisposable = vscode.commands.registerCommand('stackedExtension.initializeArchitecture', async () => {
 		if (!FileSystemManager.isFlutterProject()) { return; }
@@ -48,7 +59,7 @@ export function activate(context: vscode.ExtensionContext) {
 			return;
 		}
 
-		console.debug(`fileName: { ${inputString} }`);
+		console.debug(`inputString: { ${inputString} }`);
 
 		let nameArray = inputString.trim().split('/');
 		let folders: string[] = [];
@@ -81,7 +92,7 @@ export function activate(context: vscode.ExtensionContext) {
 		if (typeOfWidget === TYPE_OF_WIDGET.Smart) {
 			typeOfViewModel = await inputTypeOfViewModel();
 		}
-		
+
 
 		let inputString = await VsCodeActions.getInputString('Enter class name', async (value) => {
 			if (value.length === 0) {

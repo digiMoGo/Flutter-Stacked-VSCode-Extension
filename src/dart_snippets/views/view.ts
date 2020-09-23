@@ -32,7 +32,7 @@ export class View extends Base {
 import 'package:stacked/stacked.dart';
 import '${fileName}_view_model.dart';
           
-class HomeView extends StatelessWidget {
+class ${classPrefix}View extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<${classPrefix}ViewModel>.reactive(
