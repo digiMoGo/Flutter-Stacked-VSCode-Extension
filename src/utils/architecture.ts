@@ -15,14 +15,14 @@ export class Architecture {
 
   constructor(private rootPath: string) { }
 
-  public init() {
+  public init(fileName: string) {
     this.initCore();
     this.initTheme();
     this.initViews();
     this.initWidgets();
 
     YamlHelper.initializeWithDependencies();
-    this.createExistingFile(this.rootPath, 'main.dart', new Main('main.dart').dartString);
+    this.createExistingFile(this.rootPath, 'main.dart', new Main('main.dart', fileName).dartString);
   }
 
   private initCore() {

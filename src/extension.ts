@@ -23,20 +23,63 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 
 	let initializeDisposable = vscode.commands.registerCommand('stackedExtension.initializeArchitecture', async () => {
-		if (!FileSystemManager.isFlutterProject()) { return; }
+		if (!FileSystemManager.isFlutterProject()) {
+			VsCodeActions.showErrorMessage('Missing pubspec');
+			return;
+		}
 
 		let rootPath = VsCodeActions.rootPath;
 		if (_.isUndefined(rootPath)) { return; }
 
 		let typeOfArchitecture = await inputTypeOfArchitecture();
+
+		let inputString = await VsCodeActions.getInputString('Enter Class Name', async (value) => {
+			if (value.length === 0) {
+				return 'Enter a Class Name';
+			}
+
+			if (value.toLowerCase() === 'view') {
+				return 'View is not a Valid Class Name';
+			}
+
+			return undefined;
+		});
+
+		if (inputString.length === 0 || inputString.toLowerCase() === 'view') {
+			console.warn("activate: inputString length is 0");
+			VsCodeActions.showErrorMessage("Invalid name for file");
+			return;
+		}
+
+		console.debug(`inputString: { ${inputString} }`);
+
+		let nameArray = inputString.trim().split('/');
+		let folders: string[] = [];
+		if (nameArray.length > 1) {
+			let folderList = nameArray.splice(0, nameArray.length - 1).map(element => { return element; });
+			console.debug(`folderlist: { ${folderList} }`);
+			folders = folderList;
+		}
+
+		let formattedInputString = _.last(nameArray);
+		if (formattedInputString === undefined) {
+			console.error('formattedInputString is undefined');
+			return;
+		}
+		let fileName = Utils.processFileName(formattedInputString);
+		console.debug(`activate: fileName: ${fileName}`);
+
 		let typeOfViewModel = await inputTypeOfViewModel();
 
-		new Architecture(path.join(rootPath, 'lib')).init();
-		new ViewFile(rootPath, "home", typeOfArchitecture, typeOfViewModel).createViews();
+		new Architecture(path.join(rootPath, 'lib')).init(fileName);
+		new ViewFile(rootPath, fileName, typeOfArchitecture, typeOfViewModel).createViews();
 	});
 
 	let viewDisposable = vscode.commands.registerCommand('stackedExtension.createViews', async () => {
-		if (!FileSystemManager.isFlutterProject()) { return; }
+		if (!FileSystemManager.isFlutterProject()) {
+			VsCodeActions.showErrorMessage('Missing pubspec');
+			return;
+		}
 
 		let typeOfArchitecture = await inputTypeOfArchitecture();
 		let typeOfViewModel = await inputTypeOfViewModel();
@@ -84,7 +127,10 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 
 	let widgetDisposable = vscode.commands.registerCommand('stackedExtension.createWidget', async () => {
-		if (!FileSystemManager.isFlutterProject()) { return; }
+		if (!FileSystemManager.isFlutterProject()) {
+			VsCodeActions.showErrorMessage('Missing pubspec');
+			return;
+		}
 
 		let typeOfArchitecture = await inputTypeOfArchitecture();
 		let typeOfWidget = await inputTypeOfWidget();

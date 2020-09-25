@@ -5,8 +5,9 @@ export class Main extends Base {
 
   private _dartString: string;
 
-  constructor(fileName: string, suffix?: string) {
+  constructor(fileName: string, initialRouteName: string, suffix?: string) {
     super(fileName, suffix);
+    
 
     this._dartString = `import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       navigatorKey: locator<NavigationService>().navigatorKey,
       onGenerateRoute: router.Router.generateRoute,
-      initialRoute: homeViewRoute,
+      initialRoute: ${initialRouteName}ViewRoute,
     );
   }
 }
