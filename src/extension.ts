@@ -82,7 +82,6 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 
 		let typeOfArchitecture = await inputTypeOfArchitecture();
-		let typeOfViewModel = await inputTypeOfViewModel();
 
 		let inputString = await VsCodeActions.getInputString('Enter Class Name', async (value) => {
 			if (value.length === 0) {
@@ -120,6 +119,8 @@ export function activate(context: vscode.ExtensionContext) {
 		let fileName = Utils.processFileName(formattedInputString);
 		console.debug(`activate: fileName: ${fileName}`);
 
+		let typeOfViewModel = await inputTypeOfViewModel();
+
 		let rootPath = VsCodeActions.rootPath;
 		if (rootPath === undefined) { return; }
 
@@ -134,11 +135,6 @@ export function activate(context: vscode.ExtensionContext) {
 
 		let typeOfArchitecture = await inputTypeOfArchitecture();
 		let typeOfWidget = await inputTypeOfWidget();
-		let typeOfViewModel;
-		if (typeOfWidget === TYPE_OF_WIDGET.Smart) {
-			typeOfViewModel = await inputTypeOfViewModel();
-		}
-
 
 		let inputString = await VsCodeActions.getInputString('Enter class name', async (value) => {
 			if (value.length === 0) {
@@ -159,8 +155,14 @@ export function activate(context: vscode.ExtensionContext) {
 		let fileName = Utils.processFileName(inputString.trim());
 		console.debug(`activate: fileName: ${fileName}`);
 
+		let typeOfViewModel;
+		if (typeOfWidget === TYPE_OF_WIDGET.Smart) {
+			typeOfViewModel = await inputTypeOfViewModel();
+		}
+
 		let rootPath = VsCodeActions.rootPath;
 		if (rootPath === undefined) { return; }
+
 		new WidgetFile(rootPath, fileName, typeOfArchitecture, typeOfWidget, typeOfViewModel).createWidgets();
 	});
 
