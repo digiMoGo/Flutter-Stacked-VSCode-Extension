@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 import { VsCodeActions } from './vs_code_actions';
 import { FileSystemManager } from './file_system_manager';
 import { RouterConstants } from './router_constants';
-import { Router } from './router';
+import { Router } from '../dart_snippets/architecture/router';
 import { YamlHelper } from './yaml_helper';
 
 export class RouterJSON {

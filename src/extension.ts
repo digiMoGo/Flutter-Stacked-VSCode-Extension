@@ -9,6 +9,8 @@ import { Architecture } from './utils/architecture';
 import { ViewFile } from './utils/view_file';
 import { WidgetFile } from './utils/widget_file';
 import { RouterJSON } from './utils/router_json';
+import { ConfigJSON } from './utils/config_json';
+import { type } from 'os';
 
 export function activate(context: vscode.ExtensionContext) {
 
@@ -32,6 +34,9 @@ export function activate(context: vscode.ExtensionContext) {
 		if (_.isUndefined(rootPath)) { return; }
 
 		let typeOfArchitecture = await inputTypeOfArchitecture();
+		if (typeOfArchitecture === undefined) {
+			return;
+		}
 
 		let inputString = await VsCodeActions.getInputString('Enter Class Name', async (value) => {
 			if (value.length === 0) {
@@ -70,6 +75,10 @@ export function activate(context: vscode.ExtensionContext) {
 		console.debug(`activate: fileName: ${fileName}`);
 
 		let typeOfViewModel = await inputTypeOfViewModel();
+		if (typeOfViewModel === undefined) {
+			VsCodeActions.showErrorMessage("Type of ViewModel not selected");
+			return;
+		}
 
 		new Architecture(path.join(rootPath, 'lib')).init(fileName);
 		new ViewFile(rootPath, fileName, typeOfArchitecture, typeOfViewModel).createViews();
@@ -82,6 +91,9 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 
 		let typeOfArchitecture = await inputTypeOfArchitecture();
+		if (typeOfArchitecture === undefined) {
+			return;
+		}
 
 		let inputString = await VsCodeActions.getInputString('Enter Class Name', async (value) => {
 			if (value.length === 0) {
@@ -120,6 +132,10 @@ export function activate(context: vscode.ExtensionContext) {
 		console.debug(`activate: fileName: ${fileName}`);
 
 		let typeOfViewModel = await inputTypeOfViewModel();
+		if (typeOfViewModel === undefined) {
+			VsCodeActions.showErrorMessage("Type of ViewModel not selected");
+			return;
+		}
 
 		let rootPath = VsCodeActions.rootPath;
 		if (rootPath === undefined) { return; }
@@ -134,7 +150,15 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 
 		let typeOfArchitecture = await inputTypeOfArchitecture();
+		if (typeOfArchitecture === undefined) {
+			return;
+		}
+		
 		let typeOfWidget = await inputTypeOfWidget();
+		if (typeOfWidget === undefined) {
+			VsCodeActions.showErrorMessage("Type of Widget not selected");
+			return;
+		}
 
 		let inputString = await VsCodeActions.getInputString('Enter class name', async (value) => {
 			if (value.length === 0) {
@@ -158,6 +182,10 @@ export function activate(context: vscode.ExtensionContext) {
 		let typeOfViewModel;
 		if (typeOfWidget === TYPE_OF_WIDGET.Smart) {
 			typeOfViewModel = await inputTypeOfViewModel();
+			if (typeOfViewModel === undefined) {
+				VsCodeActions.showErrorMessage("Type of ViewModel not selected");
+				return;
+			}
 		}
 
 		let rootPath = VsCodeActions.rootPath;
@@ -170,37 +198,30 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(viewDisposable);
 	context.subscriptions.push(widgetDisposable);
 
-	async function inputTypeOfArchitecture(): Promise<TYPE_OF_ARCHITECTURE> {
-		let typeOfArchitecturePreference = getTypeOfArchitecture();
+	async function inputTypeOfArchitecture(): Promise<TYPE_OF_ARCHITECTURE | undefined> {
+		let typeOfArchitecturePreference = ConfigJSON.readTypeOfArchitecture();
 
 		if (typeOfArchitecturePreference === undefined) {
 			let typeOfArch = await VsCodeActions.getInputDropdown(Utils.TYPE_OF_ARCHITECTURE);
 			if (typeOfArch === undefined) {
 				console.warn("undefined");
-				return TYPE_OF_ARCHITECTURE.Mobile;
+				VsCodeActions.showErrorMessage('Type of Architecture not selected');
+				return;
 			}
-			updateTypeOfArchitecture(typeOfArch);
+			ConfigJSON.updateTypeOfArchitecture(typeOfArch);
 			typeOfArchitecturePreference = typeOfArch;
 		}
 		return Utils.convertResponsiveToEnum(typeOfArchitecturePreference);
 	}
 
-	async function inputTypeOfViewModel(): Promise<TYPE_OF_VIEWMODEL> {
+	async function inputTypeOfViewModel(): Promise<TYPE_OF_VIEWMODEL | undefined> {
 		let viewModelType = await VsCodeActions.getInputDropdown(Utils.TYPE_OF_VIEWMODEL);
 		return Utils.convertViewModelToEnum(viewModelType);
 	}
 
-	async function inputTypeOfWidget(): Promise<TYPE_OF_WIDGET> {
+	async function inputTypeOfWidget(): Promise<TYPE_OF_WIDGET | undefined> {
 		let widgetType = await VsCodeActions.getInputDropdown(Utils.TYPE_OF_WIDGET);
 		return Utils.convertWidgetToEnum(widgetType);
-	}
-
-	function getTypeOfArchitecture(): string | undefined {
-		return context.workspaceState.get<string>(Utils.ARCHITECTURE);
-	}
-
-	async function updateTypeOfArchitecture(value: string) {
-		await context.workspaceState.update(Utils.ARCHITECTURE, value);
 	}
 }
 
