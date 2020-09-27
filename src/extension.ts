@@ -121,6 +121,7 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(initializeDisposable);
 	context.subscriptions.push(viewDisposable);
 	context.subscriptions.push(widgetDisposable);
+	context.subscriptions.push(regenerateDisposable);
 
 	async function inputTypeOfArchitecture(): Promise<TYPE_OF_ARCHITECTURE> {
 		let typeOfArchitecturePreference = getTypeOfArchitecture();
