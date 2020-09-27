@@ -77,7 +77,7 @@ export class Utils {
     }
   }
 
-  public static convertViewModelToEnum(viewModelType?: string): TYPE_OF_VIEWMODEL {
+  public static convertViewModelToEnum(viewModelType?: string): TYPE_OF_VIEWMODEL | undefined {
     switch (viewModelType) {
       case 'BaseViewModel': return TYPE_OF_VIEWMODEL.BaseViewModel;
       case 'FutureViewModel': return TYPE_OF_VIEWMODEL.FutureViewModel;
@@ -86,15 +86,15 @@ export class Utils {
       case 'MultipleStreamViewModel': return TYPE_OF_VIEWMODEL.MultipleStreamViewModel;
       case 'ReactiveViewModel': return TYPE_OF_VIEWMODEL.ReactiveViewModel;
       case 'IndexTrackingViewModel': return TYPE_OF_VIEWMODEL.IndexTrackingViewModel;
-      default: return TYPE_OF_VIEWMODEL.BaseViewModel;
+      default: return undefined;
     }
   }
 
-  public static convertWidgetToEnum(widgetTpye?: string): TYPE_OF_WIDGET {
+  public static convertWidgetToEnum(widgetTpye?: string): TYPE_OF_WIDGET | undefined {
     switch(widgetTpye) {
       case 'Smart Widget': return TYPE_OF_WIDGET.Smart;
       case 'Dumb Widget': return TYPE_OF_WIDGET.Dumb;
-      default: return TYPE_OF_WIDGET.Dumb;
+      default: return undefined;
     }
   }
 }

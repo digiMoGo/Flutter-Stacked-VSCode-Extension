@@ -1,9 +1,9 @@
 import _ = require("lodash");
 import * as path from 'path';
-import { Base } from "../dart_snippets/architecture/base";
-import { FileSystemManager } from "./file_system_manager";
-import { IRouteObject } from "./router_json";
-import { VsCodeActions } from "./vs_code_actions";
+import { Base } from "./base";
+import { FileSystemManager } from "../../utils/file_system_manager";
+import { IRouteObject } from "../../utils/router_json";
+import { VsCodeActions } from "../../utils/vs_code_actions";
 
 export class Router extends Base {
 	private _dartString: string;
