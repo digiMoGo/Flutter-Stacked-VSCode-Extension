@@ -9,14 +9,13 @@ export class ConfigJSON {
 
   public static readTypeOfArchitecture(): string | undefined {
     const root_path = VsCodeActions.rootPath;
-    const json_path = path.join(root_path, 'lib', 'core');
-    const file_data = FileSystemManager.readFileAsString(json_path, 'config.json');
+    const file_data = FileSystemManager.readFileAsString(root_path, 'stackedConfig.json');
 
     let json: Config = {};
 
     if (file_data === undefined) {
-      console.debug('config.json not found');
-      console.debug('Creating config.json');
+      console.debug('stackedConfig.json not found');
+      console.debug('Creating stackedConfig.json');
     } else {
       json = JSON.parse(file_data) ?? {};
     }
@@ -26,20 +25,19 @@ export class ConfigJSON {
 
   public static updateTypeOfArchitecture(typeOfArch: string) {
     const root_path = VsCodeActions.rootPath;
-    const json_path = path.join(root_path, 'lib', 'core');
-    const file_data = FileSystemManager.readFileAsString(json_path, 'config.json');
+    const file_data = FileSystemManager.readFileAsString(root_path, 'stackedConfig.json');
 
     let json: Config = {};
 
     if (file_data === undefined) {
-      console.debug('config.json not found');
-      console.debug('Creating config.json');
+      console.debug('stackedConfig.json not found');
+      console.debug('Creating stackedConfig.json');
     } else {
       json = JSON.parse(file_data) ?? {};
     }
 
     json.typeOfArchitecture = typeOfArch;
-    FileSystemManager.createFile(json_path, 'config.json', JSON.stringify(json, null, 4));
+    FileSystemManager.createFile(root_path, 'stackedConfig.json', JSON.stringify(json, null, 4));
   }
 }
 
