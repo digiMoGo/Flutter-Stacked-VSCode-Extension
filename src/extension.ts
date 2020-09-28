@@ -32,6 +32,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 		let rootPath = VsCodeActions.rootPath;
 		if (_.isUndefined(rootPath)) { return; }
+		FileSystemManager.createFile(rootPath, 'config.json', "{}");
 
 		let typeOfArchitecture = await inputTypeOfArchitecture();
 		if (typeOfArchitecture === undefined) {
