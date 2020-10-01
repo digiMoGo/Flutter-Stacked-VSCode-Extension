@@ -48,7 +48,7 @@ export class RouterJSON {
         routes.push({
             'file_path': `${pathValue}/${this.snakeCasedFileName}_view.dart`,
             'route_name': routeName,
-            'view_name': this.upperSnakeCasedFileName + 'View',
+            'view_name': this.pascalCasedFileName + 'View',
         });
 
         json.routes = routes;
@@ -107,6 +107,10 @@ export class RouterJSON {
 
     private get upperSnakeCasedFileName(): string {
         return _.upperFirst(this.snakeCasedFileName);
+    }
+
+    private get pascalCasedFileName(): string {
+        return _.upperFirst(_.camelCase(this.fileName));
     }
 }
 
