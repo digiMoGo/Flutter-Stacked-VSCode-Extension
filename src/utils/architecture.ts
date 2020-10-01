@@ -31,7 +31,6 @@ export class Architecture {
     this.initCoreFiles(corePath);
     this.initServices(corePath);
     this.initModels(corePath);
-    this.initConfigJSON(corePath);
   }
 
   private initBase(corePath: string) {
@@ -59,10 +58,6 @@ export class Architecture {
     let modelsPath = path.join(corePath, 'models');
     let folderCreated = FileSystemManager.createFolder(modelsPath);
     console.debug(`FolderCreated: ${folderCreated}`);
-  }
-
-  private initConfigJSON(corePath: string) {
-    this.createFile(corePath, 'config.json', "{}");
   }
 
   private initTheme() {

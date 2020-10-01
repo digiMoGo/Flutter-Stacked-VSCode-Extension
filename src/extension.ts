@@ -32,6 +32,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 		let rootPath = VsCodeActions.rootPath;
 		if (_.isUndefined(rootPath)) { return; }
+		FileSystemManager.createFile(rootPath, 'stackedConfig.json', "{}");
 
 		let typeOfArchitecture = await inputTypeOfArchitecture();
 		if (typeOfArchitecture === undefined) {
@@ -153,7 +154,7 @@ export function activate(context: vscode.ExtensionContext) {
 		if (typeOfArchitecture === undefined) {
 			return;
 		}
-		
+
 		let typeOfWidget = await inputTypeOfWidget();
 		if (typeOfWidget === undefined) {
 			VsCodeActions.showErrorMessage("Type of Widget not selected");
