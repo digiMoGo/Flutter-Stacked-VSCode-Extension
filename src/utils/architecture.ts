@@ -22,7 +22,8 @@ export class Architecture {
     this.initWidgets();
 
     YamlHelper.initializeWithDependencies();
-    this.createExistingFile(this.rootPath, 'main.dart', new Main('main.dart', fileName).dartString);
+    let initialRoute =  _.camelCase(fileName);
+    this.createExistingFile(this.rootPath, 'main.dart', new Main('main.dart', initialRoute).dartString);
   }
 
   private initCore() {
