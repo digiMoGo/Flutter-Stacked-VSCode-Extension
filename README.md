@@ -56,6 +56,8 @@ VS Code Extension to work with [Stacked Extension](https://pub.dev/packages/stac
 └── web
 ```
 
+![Mobile](images/InitializeArchitectureMobile.gif)
+
 2. Responsive Views Directory Tree
 ```
 .
@@ -95,6 +97,8 @@ VS Code Extension to work with [Stacked Extension](https://pub.dev/packages/stac
 └── web
 ```
 
+![Responsive](images/InitializeArchitectureResponsive.gif)
+
 The command adds the following packages to the pubsec.yml file
 
 ```yaml
@@ -111,6 +115,9 @@ equatable: ^1.2.4
 - Running this command creates the views based on the architecture selected in Initialise Architecture Command (i.e. Responsive or Mobile views)
 - The views are created in the views folder based on the path provided
 - The path may include subfolders and this folders will be created if they do not exist
+- The view will be added in router
+
+![Views](images/CreateViews.gif)
 
 ### Create Widgets 
 
@@ -118,6 +125,7 @@ equatable: ^1.2.4
 - Widgets can be of two types
     - Dumb Widgets: Widgets without a view model
     - Smart Widgets: Widgets with a view model
+![Widgets](images/CreateWidgets.gif)
 
 ### Upcoming Features
 1. Generate Services
