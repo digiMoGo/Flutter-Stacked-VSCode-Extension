@@ -1,65 +1,130 @@
-# flutter-stacked-architecture-generator README
+[![Flutter Extensions](https://img.shields.io/badge/Flutter-grey?style=flat-square&logo=flutter&logoColor=blue)](https://flutter.dev)
+[![GitHub](https://img.shields.io/github/license/digiMoGo/Flutter-Stacked-VSCode-Extension)](https://raw.githubusercontent.com/digiMoGo/Flutter-Stacked-VSCode-Extension/master/LICENSE)
 
-This is the README for your extension "flutter-stacked-architecture-generator". After writing up a brief description, we recommend including the following sections.
 
-## Features
+# Flutter Stacked Architecture Generator
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
-
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+VS Code Extension to work with [Stacked Extension](https://pub.dev/packages/stacked) developed by [FilledStacks](https://www.filledstacks.com)
 
 ## Extension Settings
+    
+1. Initialize Architecture - ```stackedExtension.initializeArchitecture```
+2. Create Views - ```stackedExtension.createViews```
+3. Create Widgets - ```stackedExtension.createWidget```
+4. Regenerate Routes - ```stackedExtension.regenerateRoutes```
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+### Initialise Architecture
 
-For example:
+- Running this command creates the boilerplate 
+- Can create two kinds 
+    - Responsive Views
+    - Mobile Views
 
-This extension contributes the following settings:
+1. Mobile Views Directory Tree
+```
+.
+├── README.md
+├── android
+├── ios
+├── lib
+│   ├── core
+│   │   ├── base
+│   │   │   ├── base_model.dart
+│   │   │   └── base_service.dart
+│   │   ├── locator.dart
+│   │   ├── logger.dart
+│   │   ├── models
+│   │   ├── router.dart
+│   │   ├── router.json
+│   │   ├── router_constants.dart
+│   │   └── services
+│   ├── main.dart
+│   ├── theme
+│   ├── views
+│   │   └── splash
+│   │       ├── splash_view.dart
+│   │       └── splash_view_model.dart
+│   └── widgets
+│       ├── dumb_widgets
+│       └── smart_widgets
+├── myapp.iml
+├── pubspec.lock
+├── pubspec.yaml
+├── stackedConfig.json
+├── test
+│   └── widget_test.dart
+└── web
+```
 
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
+2. Responsive Views Directory Tree
+```
+.
+├── README.md
+├── android
+├── ios
+├── lib
+│   ├── core
+│   │   ├── base
+│   │   │   ├── base_model.dart
+│   │   │   └── base_service.dart
+│   │   ├── locator.dart
+│   │   ├── logger.dart
+│   │   ├── models
+│   │   ├── router.dart
+│   │   ├── router.json
+│   │   ├── router_constants.dart
+│   │   └── services
+│   ├── main.dart
+│   ├── theme
+│   ├── views
+│   │   └── splash
+│   │       ├── splash_desktop.dart
+│   │       ├── splash_mobile.dart
+│   │       ├── splash_tablet.dart
+│   │       ├── splash_view.dart
+│   │       └── splash_view_model.dart
+│   └── widgets
+│       ├── dumb_widgets
+│       └── smart_widgets
+├── myapp.iml
+├── pubspec.lock
+├── pubspec.yaml
+├── stackedConfig.json
+├── test
+│   └── widget_test.dart
+└── web
+```
 
-## Known Issues
+The command adds the following packages to the pubsec.yml file
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+```yaml
+get_it: ^4.0.4
+logger: ^0.9.2
+stacked: ^1.7.6
+stacked_services: ^0.5.4+2
+responsive_builder: ^0.2.0+2
+equatable: ^1.2.4
+```
 
-## Release Notes
+### Create Views
 
-Users appreciate release notes as you update your extension.
+- Running this command creates the views based on the architecture selected in Initialise Architecture Command (i.e. Responsive or Mobile views)
+- The views are created in the views folder based on the path provided
+- The path may include subfolders and this folders will be created if they do not exist
 
-### 1.0.0
+### Create Widgets 
 
-Initial release of ...
+- Running this command will generate widgets in ```lib/widgets``` folder
+- Widgets can be of two types
+    - Dumb Widgets: Widgets without a view model
+    - Smart Widgets: Widgets with a view model
 
-### 1.0.1
+### Upcoming Features
+1. Generate Services
+2. Generate Models
 
-Fixed issue #.
+### Contributors 
 
-### 1.1.0
-
-Added features X, Y, and Z.
-
------------------------------------------------------------------------------------------------------------
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+1. [Ajil Oomen](https://github.com/ajilo297)
+2. [Madhukesh D](https://github.com/madhukesh048)
+3. [Jugal D Wadhwa](https://github.com/jugalw13)
