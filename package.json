@@ -16,6 +16,34 @@
     "Dart",
     "Stacked"
   ],
+  "publisher": "digiMoGo",
+  "icon": "images/flutter.png",
+  "author": {
+    "email": "azure@digimogo.com",
+    "name": "digiMoGo",
+    "url": "https://github.com/digiMoGo"
+  },
+  "license": "MIT",
+  "contributors": [
+    {
+      "name": "Ajil Oommen",
+      "email": "ajilo297@gmail.com",
+      "url": "https://github.com/ajilo297"
+    },
+    {
+      "name": "Madhukesh D",
+      "email": "madhukesh04@gmail.com",
+      "url": "https://github.com/madhukesh048"
+    },
+    {
+      "name": "Jugal Wadhwa",
+      "email": "jugaldeepak@gmail.com",
+      "url": "https://github.com/jugalw13"
+    }
+  ],
+  "repository": {
+    "url": "https://github.com/digiMoGo/Flutter-Stacked-VSCode-Extension"
+  },
   "activationEvents": [
     "onCommand:stackedExtension.regenerateRoutes",
     "onCommand:stackedExtension.createViews",
