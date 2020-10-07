@@ -7,7 +7,6 @@ export class Main extends Base {
 
   constructor(fileName: string, initialRouteName: string, suffix?: string) {
     super(fileName, suffix);
-    
 
     this._dartString = `import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
