@@ -2,7 +2,7 @@
   "name": "flutter-stacked-architecture-generator",
   "displayName": "Flutter Stacked Architecture Generator",
   "description": "VsCode extension to generate boilerplate code when using FilledStacks Stacked Architecture",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "engines": {
     "vscode": "^1.48.0"
   },
